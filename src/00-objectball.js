@@ -238,3 +238,52 @@ function playerStats (playerName) {
 }
 
 //.....................................................................................................
+
+
+function bigShoeRebounds () {
+    const game = gameObject();
+    const playerWithBiggestShoe = largestShoeSize();
+    for (const team in game) {
+        if (typeof (game[team]) === 'object'){
+            for (about in game[team]) {
+                if (typeof (game[team][about] === 'object') && about === 'players'){
+                    for (const player in game[team][about]) {
+                        if (player === playerWithBiggestShoe){
+                            return game[team][about][player].Rebounds;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return;
+  }
+
+
+function largestShoeSize () {
+    const game = gameObject();
+    let maxShoe = 0;
+    let maxShoePlayer = "";
+    for (const team in game) {
+        if (typeof game[team] === 'object') {
+            for (const props in game[team]) {
+                if (props === 'players') {
+                    for (const player in game[team][props]) {
+                        if (game[team][props][player].Shoe > maxShoe) {
+                            maxShoe = game[team][props][player].Shoe;
+                            maxShoePlayer = player;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return maxShoePlayer;
+}
+
+// const p = largestShoeSize ();
+// const r = bigShoeRebounds ();
+// console.log (`player wih the biggest shoe is ${p} with ${r} Rebounds`);
+
+//.....................................................................................................
+
